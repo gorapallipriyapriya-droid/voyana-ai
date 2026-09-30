@@ -1,0 +1,943 @@
+import { DestinationGuide, Hotel, Attraction, TripPlan, FlightOption, TrainOption, BusOption, RentalCarOption } from '../types/travel';
+
+export const POPULAR_DESTINATIONS: DestinationGuide[] = [
+  {
+    id: 'tokyo-japan',
+    name: 'Tokyo',
+    country: 'Japan',
+    continent: 'Asia',
+    tagline: 'Futuristic Metropolises Meets Sacred Traditions',
+    description: 'Neon-lit skyscrapers, tranquil shrines, world-class culinary excellence, and vibrant pop culture districts blend into an exhilarating urban odyssey.',
+    image: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 165,
+    bestSeason: 'Mar - May & Oct - Nov',
+    rating: 4.94,
+    popularFor: ['Sushi & Ramen', 'Anime & Tech', 'Historic Temples', 'Subway Efficiency'],
+    highlights: ['Shibuya Crossing', 'Senso-ji Temple', 'TeamLab Planets', 'Shinjuku Gyoen Garden'],
+    lat: 35.6762,
+    lng: 139.6503,
+  },
+  {
+    id: 'paris-france',
+    name: 'Paris',
+    country: 'France',
+    continent: 'Europe',
+    tagline: 'The City of Light, Art, Fashion & Gastronomy',
+    description: 'Iconic boulevards, world-renowned museums, romantic Seine cruises, and quintessential Parisian cafes make every corner a timeless postcard.',
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 220,
+    bestSeason: 'Apr - Jun & Sep - Oct',
+    rating: 4.88,
+    popularFor: ['Haute Cuisine', 'Louvre & Orsay', 'Chic Boutiques', 'Romantic Vibe'],
+    highlights: ['Eiffel Tower', 'The Louvre', 'Montmartre Basilica', 'Champs-Élysées'],
+    lat: 48.8566,
+    lng: 2.3522,
+  },
+  {
+    id: 'bali-indonesia',
+    name: 'Bali',
+    country: 'Indonesia',
+    continent: 'Asia',
+    tagline: 'Island of the Gods, Emerald Terraces & Azure Seas',
+    description: 'Pristine beaches, sacred water temples, lush jungle retreats in Ubud, and vibrant sunset beach clubs create the ultimate tropical sanctuary.',
+    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 85,
+    bestSeason: 'May - Sep',
+    rating: 4.91,
+    popularFor: ['Surfing', 'Yoga Retreats', 'Rice Terraces', 'Beach Clubs'],
+    highlights: ['Uluwatu Temple', 'Tegallalang Rice Terraces', 'Nusa Penida Day Trip', 'Seminyak Sunsets'],
+    lat: -8.4095,
+    lng: 115.1889,
+  },
+  {
+    id: 'amalfi-italy',
+    name: 'Amalfi Coast',
+    country: 'Italy',
+    continent: 'Europe',
+    tagline: 'Dramatic Cliffside Villas, Lemons & Pastel Harbors',
+    description: 'Pastel-hued cliffside villages perched over the turquoise Tyrrhenian Sea, fragrant lemon groves, and world-class Mediterranean seafood.',
+    image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 260,
+    bestSeason: 'May - Oct',
+    rating: 4.92,
+    popularFor: ['Coastal Drives', 'Limoncello', 'Boutique Yacht Charters', 'Cliffside Dining'],
+    highlights: ['Positano Village', 'Ravello Gardens', 'Capri Blue Grotto', 'Path of the Gods Hike'],
+    lat: 40.634,
+    lng: 14.6027,
+  },
+  {
+    id: 'zermatt-switzerland',
+    name: 'Swiss Alps (Zermatt)',
+    country: 'Switzerland',
+    continent: 'Europe',
+    tagline: 'Glacial Splendor & Iconic Matterhorn Peaks',
+    description: 'Car-free alpine villages, legendary ski slopes, scenic mountain cogwheel railways, and warm Swiss cheese fondue by the fireplace.',
+    image: 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 295,
+    bestSeason: 'Dec - Mar (Ski) & Jul - Sep (Hiking)',
+    rating: 4.96,
+    popularFor: ['Alpine Skiing', 'Matterhorn Views', 'Glacier Express', 'Mountain Wellness'],
+    highlights: ['Gornergrat Railway', 'Matterhorn Glacier Paradise', 'Sunnegga Paradise', 'Five Lakes Walk'],
+    lat: 45.9765,
+    lng: 7.7491,
+  },
+  {
+    id: 'new-york-usa',
+    name: 'New York City',
+    country: 'United States',
+    continent: 'Americas',
+    tagline: 'The Electric Empire of Culture, Skyline & Ambition',
+    description: 'Iconic skylines, Broadway spectacles, leafy Central Park walks, and premier international culinary neighborhoods pulsing 24/7.',
+    image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 310,
+    bestSeason: 'Apr - Jun & Sep - Nov',
+    rating: 4.86,
+    popularFor: ['Broadway', 'World-Class Museums', 'Skyline Observatories', 'Culinary Diversity'],
+    highlights: ['Central Park', 'Summit One Vanderbilt', 'Metropolitan Museum', 'High Line Walkway'],
+    lat: 40.7128,
+    lng: -74.006,
+  },
+  {
+    id: 'dubai-uae',
+    name: 'Dubai',
+    country: 'United Arab Emirates',
+    continent: 'Middle East & Africa',
+    tagline: 'Ultra-Modern Luxury, Golden Sands & Architectural Wonders',
+    description: 'Towering architectural marvels, luxurious desert safaris, indoor ski slopes, private yacht marinas, and Michelin-starred dining experiences.',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 240,
+    bestSeason: 'Nov - Apr',
+    rating: 4.87,
+    popularFor: ['Burj Khalifa', 'Desert Dune Bashing', 'Luxury Shopping', 'Palm Jumeirah'],
+    highlights: ['Burj Khalifa At The Top', 'Museum of the Future', 'Desert Safari Camp', 'Dubai Marina Walk'],
+    lat: 25.2048,
+    lng: 55.2708,
+  },
+  {
+    id: 'reykjavik-iceland',
+    name: 'Reykjavik & Golden Circle',
+    country: 'Iceland',
+    continent: 'Europe',
+    tagline: 'Land of Fire & Ice, Geysers & Northern Lights',
+    description: 'Surreal geothermal lagoons, roaring waterfalls, volcanic black sand beaches, and the dancing emerald hues of the Aurora Borealis.',
+    image: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 250,
+    bestSeason: 'Sep - Mar (Aurora) & Jun - Aug (Midnight Sun)',
+    rating: 4.93,
+    popularFor: ['Northern Lights', 'Geothermal Spas', 'Glacier Hikes', 'Waterfalls'],
+    highlights: ['Blue Lagoon Geothermal Spa', 'Gullfoss Waterfall', 'Thingvellir Rift', 'Reynisfjara Black Beach'],
+    lat: 64.1466,
+    lng: -21.9426,
+  },
+  {
+    id: 'sydney-australia',
+    name: 'Sydney',
+    country: 'Australia',
+    continent: 'Oceania & Pacific',
+    tagline: 'Harbour Glitz, Golden Coastlines & Sun-Drenched Lifestyle',
+    description: 'Sail beneath the iconic Opera House sails, surf world-famous Bondi breakers, and indulge in fresh coastal seafood overlooking emerald bays.',
+    image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 200,
+    bestSeason: 'Nov - Apr',
+    rating: 4.89,
+    popularFor: ['Harbour Cruising', 'Bondi Beach', 'Coastal Walks', 'Wine Country Escapes'],
+    highlights: ['Sydney Opera House', 'Bondi to Coogee Walk', 'Sydney Harbour Bridge Climb', 'Manly Ferry'],
+    lat: -33.8688,
+    lng: 151.2093,
+  },
+  {
+    id: 'cape-town-south-africa',
+    name: 'Cape Town',
+    country: 'South Africa',
+    continent: 'Middle East & Africa',
+    tagline: 'Dramatic Ocean Escarpments & Award-Winning Vineyards',
+    description: 'Ascend majestic Table Mountain via cable car, encounter waddling penguins on Boulders Beach, and sip world-class Chenin Blanc in Stellenbosch.',
+    image: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 110,
+    bestSeason: 'Nov - Apr',
+    rating: 4.92,
+    popularFor: ['Table Mountain', 'Penguins at Boulders', 'Cape Winelands', 'Coastal Drives'],
+    highlights: ['Table Mountain Aerial Cableway', 'Cape Point Nature Reserve', 'Kirstenbosch Gardens', 'V&A Waterfront'],
+    lat: -33.9249,
+    lng: 18.4241,
+  },
+  {
+    id: 'cancun-mexico',
+    name: 'Cancun & Riviera Maya',
+    country: 'Mexico',
+    continent: 'Americas',
+    tagline: 'Caribbean Turquoise Waters & Ancient Mayan Pyramids',
+    description: 'Swim in sacred crystal-clear cenotes, marvel at Chichen Itza pyramids, and unwind on powdery white Caribbean beaches with authentic tacos.',
+    image: 'https://images.unsplash.com/photo-1510097467424-192d713fd8b2?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 135,
+    bestSeason: 'Dec - Apr',
+    rating: 4.84,
+    popularFor: ['Cenote Swimming', 'Mayan Ruins', 'Snorkeling & Coral', 'All-Inclusive Resorts'],
+    highlights: ['Chichen Itza World Wonder', 'Ik Kil Cenote', 'Isla Mujeres Catamaran', 'Tulum Ruins'],
+    lat: 21.1619,
+    lng: -86.8515,
+  },
+  {
+    id: 'barcelona-spain',
+    name: 'Barcelona',
+    country: 'Spain',
+    continent: 'Europe',
+    tagline: 'Gaudí Whimsy, Sun-Kissed Mediterranean & Tapas Feasts',
+    description: 'Marvel at Antoni Gaudí’s Sagrada Família, savor savory tapas in the Gothic Quarter, and stroll along the lively palm-fringed Barceloneta beach.',
+    image: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=1200&q=80',
+    avgDailyCost: 175,
+    bestSeason: 'May - Jun & Sep - Oct',
+    rating: 4.9,
+    popularFor: ['Gaudí Architecture', 'Gothic Quarter', 'Tapas & Sangria', 'Mediterranean Coast'],
+    highlights: ['Sagrada Família', 'Park Güell', 'Casa Batlló', 'La Boqueria Market'],
+    lat: 41.3879,
+    lng: 2.1699,
+  }
+];
+
+export const CURRENCY_RATES: Record<string, { symbol: string; rate: number; name: string }> = {
+  USD: { symbol: '$', rate: 1.0, name: 'US Dollar' },
+  EUR: { symbol: '€', rate: 0.92, name: 'Euro' },
+  GBP: { symbol: '£', rate: 0.79, name: 'British Pound' },
+  JPY: { symbol: '¥', rate: 154.2, name: 'Japanese Yen' },
+  AUD: { symbol: 'A$', rate: 1.52, name: 'Australian Dollar' },
+  CAD: { symbol: 'C$', rate: 1.36, name: 'Canadian Dollar' },
+  INR: { symbol: '₹', rate: 84.5, name: 'Indian Rupee' },
+  SGD: { symbol: 'S$', rate: 1.34, name: 'Singapore Dollar' },
+  CHF: { symbol: 'CHF', rate: 0.88, name: 'Swiss Franc' },
+  AED: { symbol: 'AED', rate: 3.67, name: 'UAE Dirham' },
+};
+
+export const HOTELS_CATALOG: Hotel[] = [
+  {
+    id: 'h-1',
+    name: 'The Ritz-Carlton Grand Palace',
+    stars: 5,
+    rating: 4.95,
+    reviewsCount: 1420,
+    pricePerNight: 420,
+    currency: 'USD',
+    amenities: ['Infinity Pool', 'Luxury Spa', 'Free High-Speed WiFi', 'Michelin Chef Restaurant', 'Airport Chauffeur', 'Valet Parking'],
+    distanceToCenter: '0.4 km from city center',
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+    tag: 'Top Luxury Choice',
+    address: '108 Grand Avenue, Central District',
+    description: 'Lavish contemporary suites with panoramic skyline views, bespoke butler service, and an award-winning rooftop wellness spa.',
+  },
+  {
+    id: 'h-2',
+    name: 'Aman Heritage Sanctuary & Garden',
+    stars: 5,
+    rating: 4.98,
+    reviewsCount: 930,
+    pricePerNight: 580,
+    currency: 'USD',
+    amenities: ['Private Onsen / Plunge Pool', 'Botanical Garden', 'Yoga Pavilion', 'Organic Farm-to-Table', 'Concierge Tour Desk'],
+    distanceToCenter: '1.8 km from city center',
+    image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80',
+    tag: 'Serene Sanctuary',
+    address: '42 Serenity Hills Way',
+    description: 'Immersed in lush bamboo groves and historical architecture, combining ancient serenity with state-of-the-art restorative luxury.',
+  },
+  {
+    id: 'h-3',
+    name: 'The CitizenM Urban Boutique',
+    stars: 4,
+    rating: 4.75,
+    reviewsCount: 2310,
+    pricePerNight: 165,
+    currency: 'USD',
+    amenities: ['MoodPad Room Automation', '24/7 Designer Bar', 'Co-working Lounges', 'High-Speed WiFi', 'Rain Showers'],
+    distanceToCenter: '0.2 km from main transit',
+    image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80',
+    tag: 'Best Value & Style',
+    address: '19 Metro Boulevard',
+    description: 'Smart tech, XL king beds, custom lighting presets, and energetic social lounges designed for digital nomads and smart explorers.',
+  },
+  {
+    id: 'h-4',
+    name: 'L’Azure Seaside Resort & Cabanas',
+    stars: 5,
+    rating: 4.89,
+    reviewsCount: 1680,
+    pricePerNight: 340,
+    currency: 'USD',
+    amenities: ['Direct Beach Access', 'Oceanfront Cabanas', 'Sunset Cocktail Bar', 'Water Sports Gear', 'Heated Pool'],
+    distanceToCenter: '3.5 km from harbor',
+    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80',
+    tag: 'Beachfront Haven',
+    address: '77 Coastal Promenade',
+    description: 'Step directly from your private terrace onto soft golden sand with soothing ocean waves and craft sunset mixology.',
+  },
+  {
+    id: 'h-5',
+    name: 'Boutique Loft & Artisanal Suites',
+    stars: 4,
+    rating: 4.82,
+    reviewsCount: 840,
+    pricePerNight: 195,
+    currency: 'USD',
+    amenities: ['Artisan Coffee Bar', 'Bicycle Rentals Included', 'Rooftop Terrace', 'Record Player & Vinyls', 'Pet Friendly'],
+    distanceToCenter: '0.8 km from historic district',
+    image: 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80',
+    tag: 'Boutique Aesthetic',
+    address: '15 Artisan Alley, Arts Quarter',
+    description: 'Individually decorated suites featuring custom local artworks, exposed brick finishes, and vintage vinyl listening corners.',
+  },
+  {
+    id: 'h-6',
+    name: 'Green Oasis Eco-Lodge & Spa',
+    stars: 4,
+    rating: 4.86,
+    reviewsCount: 650,
+    pricePerNight: 175,
+    currency: 'USD',
+    amenities: ['Solar Powered', 'Zero Plastic Guarantee', 'Saltwater Bio-Pool', 'Farm-to-Fork Breakfast', 'Herbal Sauna'],
+    distanceToCenter: '4.2 km in Nature Reserve',
+    image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=80',
+    tag: 'Sustainable Living',
+    address: '88 Forest Canopy Trail',
+    description: 'Certified carbon-neutral eco lodge blending luxury hospitality with native flora conservation and regenerative dining.',
+  }
+];
+
+export const SAMPLE_TRIP_PLAN: TripPlan = {
+  id: 'voyana-plan-sample-kyoto-tokyo',
+  title: '7-Day Enchanting Japan: Tokyo Modernity & Kyoto Traditions',
+  destination: 'Tokyo & Kyoto, Japan',
+  startLocation: 'San Francisco, CA (SFO)',
+  dates: {
+    start: '2026-10-10',
+    end: '2026-10-17',
+  },
+  durationDays: 7,
+  travelers: 2,
+  budgetLevel: 'Moderate ($$)',
+  travelStyle: 'Culture & Heritage',
+  summary: 'Experience the harmonious duality of Japan: the electric neon skylines, robot cafes, and cutting-edge digital art of Tokyo, paired with the serene bamboo groves, golden temples, and traditional tea ceremonies of historic Kyoto.',
+  highlights: [
+    'Private early morning walk through Fushimi Inari 10,000 Torii gates',
+    'Interactive TeamLab Planets digital sensory art experience in Toyosu',
+    'Shinkansen bullet train journey with Mount Fuji views at 320 km/h',
+    'Authentic Tsukiji Outer Market wagyu beef and fresh bluefin tuna tasting',
+    'Evening stroll along Pontocho Alley lantern-lit geisha district'
+  ],
+  route: {
+    origin: 'San Francisco (SFO)',
+    destination: 'Tokyo & Kyoto, Japan',
+    distanceKm: 8270,
+    travelTimeHours: '10h 45m flight + 2h 15m bullet train',
+    alternateRoutes: [
+      {
+        name: 'The Tokaido Scenic Shinkansen',
+        description: 'High-speed Nozomi Shinkansen linking Tokyo and Kyoto via Nagoya.',
+        distanceKm: 513,
+        time: '2 hours 15 mins',
+        highlight: 'Magnificent Mount Fuji views on clear days from right side seats.'
+      },
+      {
+        name: 'Hakone Hot Springs Detour Route',
+        description: 'Stopover in Hakone mountain onsens with Lake Ashi pirate boat.',
+        distanceKm: 560,
+        time: '4 hours',
+        highlight: 'Volcanic sulphur vents and traditional Ryokan multi-course kaiseki.'
+      }
+    ],
+    fuelCostEstimate: 42,
+    routeWaypoints: [
+      { name: 'Tokyo Haneda Airport (HND)', lat: 35.5494, lng: 139.7798, type: 'start', description: 'Arrival gateway to Tokyo metropolis.' },
+      { name: 'Shibuya & Harajuku', lat: 35.6595, lng: 139.7004, type: 'waypoint', description: 'Scramble crossing, Meiji Jingu shrine, and youth fashion.' },
+      { name: 'Tokyo Station (Bullet Train)', lat: 35.6812, lng: 139.7671, type: 'waypoint', description: 'Boarding the Shinkansen Nozomi bullet train.' },
+      { name: 'Kyoto Station', lat: 34.9858, lng: 135.7588, type: 'destination', description: 'Futuristic glass terminal leading to historic temples.' },
+      { name: 'Arashiyama Bamboo Grove', lat: 35.0169, lng: 135.6713, type: 'attraction', description: 'Towering green bamboo stalks and tenryu-ji zen temple.' }
+    ]
+  },
+  dailyItinerary: [
+    {
+      day: 1,
+      date: 'Day 1: Arrival & Electric Tokyo',
+      theme: 'Arrival, Skyline Views & Neon Nights',
+      morning: {
+        title: 'Arrival at Haneda & Suica Card Setup',
+        timeSlot: '09:30 AM - 11:30 AM',
+        duration: '2 hours',
+        cost: 35,
+        location: 'Haneda Airport Terminal 3',
+        description: 'Smooth customs clearance, pick up pocket Wi-Fi / eSIM, activate mobile transit cards, and board the Tokyo Monorail into the city.',
+        category: 'Transport',
+        tips: 'Add digital Suica/Pasmo card to Apple/Google Wallet for tap-and-go transit.'
+      },
+      afternoon: {
+        title: 'Shibuya Crossing & Hachiko Statue',
+        timeSlot: '01:00 PM - 04:00 PM',
+        duration: '3 hours',
+        cost: 20,
+        location: 'Shibuya City Center',
+        description: 'Walk across the world-famous Shibuya Scramble, visit Shibuya Sky 360-degree glass rooftop deck, and explore trendy Miyashita Park.',
+        category: 'Sightseeing',
+        tips: 'Book Shibuya Sky sunset ticket slot at least 3 weeks in advance.'
+      },
+      evening: {
+        title: 'Shinjuku Golden Gai & Omoide Yokocho',
+        timeSlot: '06:00 PM - 08:30 PM',
+        duration: '2.5 hours',
+        cost: 50,
+        location: 'Shinjuku Central',
+        description: 'Savor charcoal-grilled yakitori skewers and draft Sapporo beer in atmospheric narrow post-war alleys lit with red paper lanterns.',
+        category: 'Dining',
+        tips: 'Bring cash yen for tiny 6-seat izakayas with cover charges.'
+      },
+      night: {
+        title: 'Tokyo Metropolitan Government Tower Vista',
+        timeSlot: '09:00 PM - 10:30 PM',
+        duration: '1.5 hours',
+        cost: 0,
+        location: 'Nishi-Shinjuku',
+        description: 'Free public observation deck on the 45th floor presenting an endless sea of illuminated neon Tokyo skyscrapers.',
+        category: 'Leisure',
+        tips: 'Open until 10:00 PM with live piano performances.'
+      },
+      dayBudget: 105
+    },
+    {
+      day: 2,
+      date: 'Day 2: Sacred Tradition & Digital Art',
+      theme: 'Ancient Shrines & Immersive Future',
+      morning: {
+        title: 'Asakusa Senso-ji Temple & Nakamise Street',
+        timeSlot: '08:30 AM - 11:30 AM',
+        duration: '3 hours',
+        cost: 15,
+        location: 'Asakusa, Taito City',
+        description: 'Tokyo’s oldest Buddhist temple dating to 645 AD. Pass through the giant Kaminarimon lantern and sample warm melon-pan pastries.',
+        category: 'Culture',
+        tips: 'Arrive before 9 AM for peaceful photos before tour groups.'
+      },
+      afternoon: {
+        title: 'teamLab Planets Digital Art Museum',
+        timeSlot: '01:30 PM - 04:00 PM',
+        duration: '2.5 hours',
+        cost: 38,
+        location: 'Toyosu, Koto City',
+        description: 'Walk barefoot through water with projected swimming koi fish, infinity crystal mirror rooms, and living floating orchid gardens.',
+        category: 'Sightseeing',
+        tips: 'Wear pants you can roll up to your knees comfortably.'
+      },
+      evening: {
+        title: 'Ginza Artisanal Ramen & Shopping',
+        timeSlot: '06:00 PM - 08:30 PM',
+        duration: '2.5 hours',
+        cost: 45,
+        location: 'Ginza District',
+        description: 'Feast on truffle shoyu ramen at Ginza Hachigo or Kagari, followed by browsing flagship stationary emporium Itoya.',
+        category: 'Dining',
+        tips: 'Queue 30 mins before dinner service for popular noodle counters.'
+      },
+      night: {
+        title: 'Evening Cruise on Sumida River',
+        timeSlot: '09:00 PM - 10:30 PM',
+        duration: '1.5 hours',
+        cost: 25,
+        location: 'Asakusa to Odaiba Pier',
+        description: 'Futuristic water bus styled like a spacecraft cruising under illuminated bridges toward the rainbow-lit Tokyo Bay.',
+        category: 'Leisure',
+        tips: 'Sit on the upper observation deck for Tokyo Tower silhouettes.'
+      },
+      dayBudget: 123
+    },
+    {
+      day: 3,
+      date: 'Day 3: Shinkansen Bullet Train to Kyoto',
+      theme: 'Bullet Train Velocity & Geisha Lanterns',
+      morning: {
+        title: 'Nozomi Shinkansen Ride to Kyoto',
+        timeSlot: '09:00 AM - 11:30 AM',
+        duration: '2.5 hours',
+        cost: 105,
+        location: 'Tokyo Station to Kyoto Station',
+        description: 'Cruise along the Tokaido corridor at 285 km/h while enjoying an ornate Ekiben bento box purchased from Tokyo Station.',
+        category: 'Transport',
+        tips: 'Reserve seats on row E (right side) for Mount Fuji panorama.'
+      },
+      afternoon: {
+        title: 'Kiyomizu-dera Temple & Higashiyama Streets',
+        timeSlot: '01:30 PM - 04:30 PM',
+        duration: '3 hours',
+        cost: 15,
+        location: 'Higashiyama Ward, Kyoto',
+        description: 'Perched on wooden pillars overlooking cherry blossom ravines without a single nail used. Wander stone-paved Ninenzaka preserved alleys.',
+        category: 'Culture',
+        tips: 'Drink from the Otowa Waterfall three pure streams for longevity and health.'
+      },
+      evening: {
+        title: 'Pontocho Alley Kaiseki Dinner',
+        timeSlot: '06:30 PM - 09:00 PM',
+        duration: '2.5 hours',
+        cost: 85,
+        location: 'Pontocho, Nakagyo Ward',
+        description: 'Multi-course seasonal Kyoto kaiseki dining on outdoor Kamogawa river wooden platforms (kawayuka) under paper lanterns.',
+        category: 'Dining',
+        tips: 'Book riverside seating facing the Kamogawa river.'
+      },
+      night: {
+        title: 'Gion District Lantern Walk',
+        timeSlot: '09:30 PM - 10:30 PM',
+        duration: '1 hour',
+        cost: 0,
+        location: 'Gion Traditional District',
+        description: 'Quiet nighttime stroll through wooden machiya teahouses and weeping willows where apprentice geiko glide softly between appointments.',
+        category: 'Leisure',
+        tips: 'Respect geisha privacy; photography on private side alleys is strictly prohibited.'
+      },
+      dayBudget: 205
+    },
+    {
+      day: 4,
+      date: 'Day 4: Bamboo Groves & Golden Pavilion',
+      theme: 'Zen Monasteries & Forest Whispers',
+      morning: {
+        title: 'Arashiyama Bamboo Forest & Tenryu-ji Garden',
+        timeSlot: '07:30 AM - 11:00 AM',
+        duration: '3.5 hours',
+        cost: 12,
+        location: 'Arashiyama, Ukyo Ward',
+        description: 'Hear the rustling wind through towering green bamboo stalks followed by UNESCO 14th-century pond garden reflections at Tenryu-ji.',
+        category: 'Adventure',
+        tips: 'Early 7:30 AM arrival gives you the entire emerald forest alone.'
+      },
+      afternoon: {
+        title: 'Kinkaku-ji (The Golden Pavilion)',
+        timeSlot: '01:30 PM - 03:30 PM',
+        duration: '2 hours',
+        cost: 8,
+        location: 'Kita Ward, Kyoto',
+        description: 'Spectacular Zen Buddhist temple covered in pure gold leaf shimmering over Mirror Pond (Kyoko-chi) surrounded by pine islets.',
+        category: 'Sightseeing',
+        tips: 'Afternoon light catches the gilded top floors brilliantly.'
+      },
+      evening: {
+        title: 'Kyoto Matcha Ceremony & Soba Noodle Tasting',
+        timeSlot: '05:00 PM - 07:30 PM',
+        duration: '2.5 hours',
+        cost: 40,
+        location: 'Uji & Central Kyoto',
+        description: 'Learn the formal ritual of whisking ceremonial green tea with sweet wagashi confections, followed by handmade buckwheat soba.',
+        category: 'Dining',
+        tips: 'Try cold zaru soba dipped in dashi broth with freshly grated wasabi.'
+      },
+      night: {
+        title: 'Yasaka Shrine Night Illumination',
+        timeSlot: '08:30 PM - 10:00 PM',
+        duration: '1.5 hours',
+        cost: 0,
+        location: 'Gion, Kyoto',
+        description: 'Hundreds of inscribed donation lanterns glow warmly in the shrine courtyard under night skies.',
+        category: 'Leisure',
+        tips: 'Open 24 hours with free admission.'
+      },
+      dayBudget: 60
+    },
+    {
+      day: 5,
+      date: 'Day 5: 10,000 Torii Gates & Nara Deer Day Trip',
+      theme: 'Sacred Mount Inari & Friendly Sika Deer',
+      morning: {
+        title: 'Fushimi Inari Taisha Torii Gate Mountain Hike',
+        timeSlot: '07:00 AM - 10:30 AM',
+        duration: '3.5 hours',
+        cost: 0,
+        location: 'Fushimi Ward, Kyoto',
+        description: 'Hike through thousands of bright vermilion torii gates winding up the sacred wooded mountain dedicated to the Shinto god of rice and sake.',
+        category: 'Adventure',
+        tips: 'Hike past Yotsutsuji intersection for panoramic views of Kyoto without the crowds.'
+      },
+      afternoon: {
+        title: 'Nara Deer Park & Todai-ji Giant Bronze Buddha',
+        timeSlot: '12:00 PM - 04:30 PM',
+        duration: '4.5 hours',
+        cost: 25,
+        location: 'Nara City, Nara Prefecture',
+        description: 'Feed bowing friendly sika deer shika-senbei crackers and step into the world’s largest wooden building sheltering a 15-meter bronze Buddha.',
+        category: 'Culture',
+        tips: 'Direct 35-minute express train on the JR Nara line from Kyoto station.'
+      },
+      evening: {
+        title: 'Nishiki Market Food Stalls Crawl',
+        timeSlot: '06:00 PM - 08:30 PM',
+        duration: '2.5 hours',
+        cost: 45,
+        location: 'Nishikikoji-dori, Nakagyo Ward',
+        description: 'Sample skewers of grilled unagi eel, dashi tamagoyaki egg omelets, baby octopus stuffed with quail eggs, and sesame mochi.',
+        category: 'Dining',
+        tips: 'Eat at designated vendor seating rather than walking with food.'
+      },
+      night: {
+        title: 'Kamogawa Riverbank Relax & Craft Beer',
+        timeSlot: '09:00 PM - 10:30 PM',
+        duration: '1.5 hours',
+        cost: 18,
+        location: 'Sanjo Kamogawa Bridge',
+        description: 'Sit along the gentle riverbank where locals gather on warm evenings with craft IPAs from Kyoto Brewing Co.',
+        category: 'Leisure',
+        tips: 'A relaxing way to experience local evening culture.'
+      },
+      dayBudget: 88
+    },
+    {
+      day: 6,
+      date: 'Day 6: Return to Tokyo & Fashion Districts',
+      theme: 'Retro Vibes, Harajuku & Wagyu BBQ',
+      morning: {
+        title: 'Morning Shinkansen to Tokyo & Akihabara',
+        timeSlot: '09:00 AM - 12:00 PM',
+        duration: '3 hours',
+        cost: 105,
+        location: 'Kyoto to Tokyo Station',
+        description: 'Scenic high-speed train return to Tokyo, check into hotel, and dive into Akihabara Electric Town retro gaming arcades and multi-level gadget centers.',
+        category: 'Transport',
+        tips: 'Use coin lockers at Tokyo Station if hotel check-in is not ready.'
+      },
+      afternoon: {
+        title: 'Harajuku Takeshita Street & Meiji Shrine',
+        timeSlot: '01:30 PM - 04:30 PM',
+        duration: '3 hours',
+        cost: 15,
+        location: 'Shibuya Ward, Tokyo',
+        description: 'Walk through the towering cedar forest of Meiji Jingu shrine, then emerge into wild rainbow cotton candy and crepe fashion on Takeshita Street.',
+        category: 'Sightseeing',
+        tips: 'Contrast the profound silence of Meiji shrine with hyperactive Harajuku.'
+      },
+      evening: {
+        title: 'A5 Miyazaki Wagyu Yakiniku Dinner',
+        timeSlot: '06:30 PM - 09:00 PM',
+        duration: '2.5 hours',
+        cost: 95,
+        location: 'Roppongi, Minato City',
+        description: 'Sizzle premium marble-rich A5 wagyu cuts over smokeless tabletop charcoal grills paired with garlic fried rice and chilled kimchee.',
+        category: 'Dining',
+        tips: 'Order the Chef omakase tasting flight with tongue, ribeye, and sirloin.'
+      },
+      night: {
+        title: 'Roppongi Hills Mori Tower Sky Deck',
+        timeSlot: '09:30 PM - 11:00 PM',
+        duration: '1.5 hours',
+        cost: 22,
+        location: 'Roppongi Hills, Minato City',
+        description: 'Open-air helipad observation roof 270 meters above sea level looking straight across at the glowing orange Tokyo Tower.',
+        category: 'Sightseeing',
+        tips: 'Windy on the helipad; light jacket recommended.'
+      },
+      dayBudget: 237
+    },
+    {
+      day: 7,
+      date: 'Day 7: Tsukiji Market & Farewell Tokyo',
+      theme: 'Seafood Delicacies, Souvenirs & Departure',
+      morning: {
+        title: 'Tsukiji Outer Market Culinary Safari',
+        timeSlot: '08:00 AM - 11:00 AM',
+        duration: '3 hours',
+        cost: 50,
+        location: 'Tsukiji, Chuo City',
+        description: 'Bustling fishmongers slicing fresh sea urchin (uni), flame-torched scallops in butter, tamagoyaki skewers, and strawberry daifuku mochi.',
+        category: 'Dining',
+        tips: 'Most stalls open at 7 AM and close around 1:30 PM.'
+      },
+      afternoon: {
+        title: 'Odaiba Seaside Park & Gundam Statue',
+        timeSlot: '12:30 PM - 03:30 PM',
+        duration: '3 hours',
+        cost: 15,
+        location: 'Odaiba, Tokyo Bay',
+        description: 'View the life-size transforming Unicorn Gundam statue, relax along Tokyo Bay sandy shores with views of Rainbow Bridge.',
+        category: 'Leisure',
+        tips: 'Watch the Gundam transformation light show at 1:00 PM and 3:00 PM.'
+      },
+      evening: {
+        title: 'Depachika Souvenir Shopping & Haneda Airport',
+        timeSlot: '04:30 PM - 07:30 PM',
+        duration: '3 hours',
+        cost: 40,
+        location: 'Tokyo Station & Haneda Airport',
+        description: 'Pick up famous Tokyo Banana cakes, Royce chocolates, Shiroi Koibito cookies, and ceremonial matcha before boarding your flight.',
+        category: 'Transport',
+        tips: 'Duty-free shops past security offer boxed Japanese confectioneries.'
+      },
+      night: {
+        title: 'Departure Flight Back to SFO',
+        timeSlot: '09:30 PM - 11:30 PM',
+        duration: '2 hours',
+        cost: 0,
+        location: 'Haneda Airport Terminal 3',
+        description: 'Relax in the terminal lounge, reflecting on memories of bullet trains, ancient shrines, and unforgettable Japanese hospitality.',
+        category: 'Transport',
+        tips: 'Ensure duty-free liquid receipts are packed correctly in carry-on.'
+      },
+      dayBudget: 105
+    }
+  ],
+  hotels: [
+    HOTELS_CATALOG[0],
+    HOTELS_CATALOG[1],
+    HOTELS_CATALOG[2]
+  ],
+  transport: {
+    flights: [
+      {
+        airline: 'All Nippon Airways (ANA)',
+        flightNumber: 'NH 007',
+        price: 980,
+        duration: '10h 30m',
+        departureTime: '11:15 AM',
+        arrivalTime: '02:45 PM (+1)',
+        stops: 'Non-stop Direct',
+        originAirport: 'San Francisco (SFO)',
+        destAirport: 'Tokyo Haneda (HND)',
+        classType: 'Economy Preferred'
+      },
+      {
+        airline: 'Japan Airlines (JAL)',
+        flightNumber: 'JL 001',
+        price: 1040,
+        duration: '10h 40m',
+        departureTime: '01:30 PM',
+        arrivalTime: '05:10 PM (+1)',
+        stops: 'Non-stop Direct',
+        originAirport: 'San Francisco (SFO)',
+        destAirport: 'Tokyo Narita (NRT)',
+        classType: 'Economy Comfort'
+      },
+      {
+        airline: 'Singapore Airlines',
+        flightNumber: 'SQ 011',
+        price: 890,
+        duration: '11h 10m',
+        departureTime: '09:45 AM',
+        arrivalTime: '01:55 PM (+1)',
+        stops: 'Non-stop Direct',
+        originAirport: 'San Francisco (SFO)',
+        destAirport: 'Tokyo Narita (NRT)',
+        classType: 'Economy Saver'
+      }
+    ],
+    trains: [
+      {
+        operator: 'JR Central Shinkansen',
+        trainNumber: 'Nozomi 215',
+        fare: 108,
+        departureTime: '09:03 AM',
+        arrivalTime: '11:18 AM',
+        duration: '2h 15m',
+        classType: 'Ordinary Reserved',
+        departureStation: 'Tokyo Station',
+        arrivalStation: 'Kyoto Station'
+      },
+      {
+        operator: 'JR West Haruka Express',
+        trainNumber: 'Haruka 19',
+        fare: 28,
+        departureTime: '11:45 AM',
+        arrivalTime: '12:55 PM',
+        duration: '1h 10m',
+        classType: 'Standard Reserved',
+        departureStation: 'Kansai Int. Airport (KIX)',
+        arrivalStation: 'Kyoto Station'
+      },
+      {
+        operator: 'Keihan Main Line Express',
+        trainNumber: 'Rapid Ltd Exp 42',
+        fare: 6,
+        departureTime: '02:15 PM',
+        arrivalTime: '03:05 PM',
+        duration: '50m',
+        classType: 'Commuter / Premium Car',
+        departureStation: 'Sanjo (Kyoto)',
+        arrivalStation: 'Yodoyabashi (Osaka)'
+      }
+    ],
+    buses: [
+      {
+        operator: 'Willer Express Luxury Highway Bus',
+        fare: 35,
+        departureTime: '11:30 PM',
+        arrivalTime: '06:45 AM (+1)',
+        duration: '7h 15m',
+        busType: 'Reclina Pod Bed / USB Charging / Curtain Privacy'
+      },
+      {
+        operator: 'Keio Highway Express',
+        fare: 18,
+        departureTime: '08:15 AM',
+        arrivalTime: '10:05 AM',
+        duration: '1h 50m',
+        busType: 'Direct Alpine Coach to Mount Fuji 5th Station'
+      }
+    ],
+    rentals: [
+      {
+        vehicle: 'Toyota Prius Hybrid e-Four',
+        type: 'Compact Eco Sedan',
+        costPerDay: 58,
+        fuelEstimate: 22,
+        seats: 5,
+        transmission: 'Automatic',
+        image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80',
+        provider: 'Toyota Rent-a-Car Japan'
+      },
+      {
+        vehicle: 'Nissan Serena e-POWER 8-Seater',
+        type: 'Spacious Minivan',
+        costPerDay: 95,
+        fuelEstimate: 34,
+        seats: 8,
+        transmission: 'Automatic',
+        image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80',
+        provider: 'Nippon Rent-A-Car'
+      }
+    ]
+  },
+  budget: {
+    accommodationCost: 1150,
+    transportCost: 820,
+    foodCost: 650,
+    activitiesCost: 320,
+    shoppingCost: 300,
+    emergencyFund: 250,
+    totalEstimatedCost: 3490,
+    currency: 'USD',
+    savingsTips: [
+      'Purchase the 7-day regional transit pass or load digital Suica for automatic off-peak transfer discounts.',
+      'Savor lunch sets at high-end Michelin restaurants for 50-70% less than evening dinner menus.',
+      'Take advantage of tax-free shopping (10% rebate) at Don Quijote, Bic Camera, and department stores with your physical passport.',
+      '7-Eleven, Lawson, and FamilyMart offer chef-grade onigiri, egg salad sandwiches, and hot bento for under $5.'
+    ]
+  },
+  weather: {
+    destination: 'Tokyo & Kyoto, Japan',
+    currentTemp: 21,
+    condition: 'Pleasant & Mild Autumn Breezes',
+    humidity: 58,
+    windSpeed: 12,
+    rainProbability: 15,
+    forecast: [
+      { day: 'Sat', high: 22, low: 14, condition: 'Sunny', rainProb: 10, iconName: 'sun' },
+      { day: 'Sun', high: 23, low: 15, condition: 'Partly Cloudy', rainProb: 15, iconName: 'cloud-sun' },
+      { day: 'Mon', high: 20, low: 13, condition: 'Clear Skies', rainProb: 5, iconName: 'sun' },
+      { day: 'Tue', high: 19, low: 12, condition: 'Passing Shower', rainProb: 40, iconName: 'rain' },
+      { day: 'Wed', high: 21, low: 13, condition: 'Sunny', rainProb: 10, iconName: 'sun' },
+      { day: 'Thu', high: 22, low: 14, condition: 'Mild Breeze', rainProb: 15, iconName: 'cloud' },
+      { day: 'Fri', high: 24, low: 15, condition: 'Warm & Clear', rainProb: 10, iconName: 'sun' }
+    ]
+  },
+  attractions: [
+    {
+      id: 'attr-1',
+      name: 'Senso-ji Temple & Kaminarimon',
+      destination: 'Tokyo, Japan',
+      category: 'Historical & Cultural',
+      rating: 4.9,
+      reviewsCount: 18240,
+      entryFee: 0,
+      bestTime: '08:00 AM - 10:30 AM',
+      description: 'Tokyo’s oldest Buddhist temple founded in 645 AD, famed for its towering vermilion Kaminarimon gate and bustling Nakamise souvenir street.',
+      image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800&q=80',
+      highlights: ['Giant paper lantern', 'Five-story pagoda', 'Incense purification cauldron', 'Traditional sweet shops']
+    },
+    {
+      id: 'attr-2',
+      name: 'Fushimi Inari Taisha 10,000 Gates',
+      destination: 'Kyoto, Japan',
+      category: 'Spiritual Shrines',
+      rating: 4.97,
+      reviewsCount: 32400,
+      entryFee: 0,
+      bestTime: '06:30 AM - 08:30 AM or Dusk',
+      description: 'Winding paths through dense mountain forest shaded by an endless tunnel of bright orange-red torii gates donated by devotees since 711 AD.',
+      image: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80',
+      highlights: ['Scenic mountain summit loop', 'Stone fox messenger statues', 'Miniature torii altars', 'Kyoto city overlook']
+    },
+    {
+      id: 'attr-3',
+      name: 'teamLab Planets Digital Art Museum',
+      destination: 'Tokyo, Japan',
+      category: 'Modern Interactive Art',
+      rating: 4.91,
+      reviewsCount: 14120,
+      entryFee: 38,
+      bestTime: '11:00 AM - 02:00 PM',
+      description: 'Immersive body-interactive museum where visitors walk barefoot through water projections, endless mirrored crystal columns, and living botanical gardens.',
+      image: 'https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=800&q=80',
+      highlights: ['Drawing on the Water Surface', 'Infinite Crystal Universe', 'Floating Orchid Room', 'Soft Black Holes']
+    },
+    {
+      id: 'attr-4',
+      name: 'Kinkaku-ji (Golden Pavilion)',
+      destination: 'Kyoto, Japan',
+      category: 'UNESCO World Heritage',
+      rating: 4.88,
+      reviewsCount: 22100,
+      entryFee: 5,
+      bestTime: '02:30 PM - 04:30 PM',
+      description: 'A Zen temple whose top two floors are completely blanketed in pure gold leaf, reflecting in a tranquil pond amid sculptured pine trees.',
+      image: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80',
+      highlights: ['Gold leaf architecture', 'Mirror pond reflection', 'Zen garden tea house', 'Sacred relics hall']
+    },
+    {
+      id: 'attr-5',
+      name: 'Shibuya Sky 360 Observatory',
+      destination: 'Tokyo, Japan',
+      category: 'Skyline & Architecture',
+      rating: 4.89,
+      reviewsCount: 16900,
+      entryFee: 20,
+      bestTime: '05:00 PM - 06:30 PM (Sunset)',
+      description: 'Perched 229 meters directly above Shibuya Crossing with an open-air rooftop observation deck, glass corners, and sky hammocks.',
+      image: 'https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=800&q=80',
+      highlights: ['Open-air glass corner photo spot', 'Bird-eye view of Shibuya Scramble', 'Mount Fuji sunset silhouette', 'Bar The Roof']
+    }
+  ],
+  checklist: [
+    { id: 'c-1', category: 'Essentials', item: 'Valid Passport (6+ months before expiry)', checked: true },
+    { id: 'c-2', category: 'Essentials', item: 'Visit Japan Web digital customs QR code', checked: true },
+    { id: 'c-3', category: 'Electronics', item: 'Universal Power Adapter & 65W GaN Fast Charger', checked: true },
+    { id: 'c-4', category: 'Electronics', item: 'eSIM / Pocket Wi-Fi mobile data reservation', checked: true },
+    { id: 'c-5', category: 'Finance', item: 'No foreign fee Credit Card + JPY Cash for small shops', checked: false },
+    { id: 'c-6', category: 'Apparel', item: 'Comfortable walking slip-on shoes (for temple removals)', checked: false },
+    { id: 'c-7', category: 'Health & Care', item: 'Travel Medical Insurance policy card', checked: true },
+    { id: 'c-8', category: 'Electronics', item: 'Portable 10,000mAh Power Bank for long photo days', checked: false }
+  ],
+  createdAt: '2026-09-30T04:30:00.000Z'
+};
+
+export const VISA_DATABASE: Record<string, { requirement: string; duration: string; details: string; documentsNeeded: string[] }> = {
+  'US-to-Japan': {
+    requirement: 'Visa-Free Entry (90 Days)',
+    duration: 'Up to 90 consecutive days',
+    details: 'US passport holders can enter Japan for tourism or transit without a pre-arrival visa. Ensure you complete the Visit Japan Web declaration online.',
+    documentsNeeded: ['Passport valid for duration of stay', 'Return or onward flight ticket', 'Proof of sufficient funds', 'Visit Japan Web QR code']
+  },
+  'US-to-France': {
+    requirement: 'Visa-Free / ETIAS Authorization',
+    duration: '90 days within any 180-day period (Schengen)',
+    details: 'US citizens do not require a visa for short tourist stays under 90 days. Valid across all 29 Schengen member states.',
+    documentsNeeded: ['Passport valid 3+ months beyond intended departure', 'Travel health insurance', 'Confirmed return ticket']
+  },
+  'US-to-Indonesia': {
+    requirement: 'Electronic Visa on Arrival (e-VOA)',
+    duration: '30 days (extendable once for 30 more days)',
+    details: 'Can be obtained online before departure via the official Indonesian immigration portal or purchased at Bali airport upon landing for $35 USD.',
+    documentsNeeded: ['Passport valid for at least 6 months', 'Return flight ticket', 'Bali Tourism Tax levy ($10)']
+  },
+  'US-to-Switzerland': {
+    requirement: 'Visa-Free Schengen Entry',
+    duration: 'Up to 90 days in 180 days',
+    details: 'Seamless entry into Switzerland as part of the European Schengen travel zone.',
+    documentsNeeded: ['Passport with at least 3 months validity', 'Proof of accommodation', 'Return ticket']
+  },
+  'Default': {
+    requirement: 'Visa-Free or e-Visa available',
+    duration: '30 to 90 days typical tourist allowance',
+    details: 'Most international visitors can enter for leisure travel via simple e-visa or visa-on-arrival protocols.',
+    documentsNeeded: ['Valid passport (min 6 months)', 'Return travel ticket', 'Hotel booking confirmation']
+  }
+};

@@ -1,0 +1,8 @@
+{
+  "name": "Voyana AI",
+  "description": "AI-powered travel planning platform that generates complete travel routes, hotel recommendations, transportation options, itineraries, and budget estimates in seconds.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
